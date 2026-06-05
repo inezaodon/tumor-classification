@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data / models (usually too large for git)
+data/
+*.h5
+*.pkl
+*.pt
+*.pth
+
+# OS
+.DS_Store
