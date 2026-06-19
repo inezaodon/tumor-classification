@@ -58,6 +58,11 @@ def load_models(models_dir):
         from tensorflow import keras
         models['MobileNetV2 Transfer'] = {'kind': 'mobilenetv2', 'model': keras.models.load_model(mobilenet_path)}
 
+    modified_path = models_dir / 'modified_cnn.keras'
+    if modified_path.exists():
+        from tensorflow import keras
+        models['Modified CNN'] = {'kind': 'scratch_cnn', 'model': keras.models.load_model(modified_path)}
+
     metadata_path = models_dir / 'metadata.json'
     metadata = json.loads(metadata_path.read_text()) if metadata_path.exists() else None
 

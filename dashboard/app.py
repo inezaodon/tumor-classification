@@ -1,7 +1,9 @@
 """Educational dashboard for the Brain MRI Tumor Classification project.
 
 Run with: streamlit run dashboard/app.py
-Requires models exported by Section 18 of final_nb_deliverable3_ml.ipynb (models/*.joblib, *.keras, metadata.json).
+Ships with the final, committed model weights in models/ (*.joblib, *.keras, metadata.json) —
+exported once by Section 19 of final_nb_deliverable3_ml.ipynb and tracked in git, so the
+dashboard does not depend on re-running the notebook.
 """
 from pathlib import Path
 
@@ -15,7 +17,7 @@ from model_utils import CLASSES, load_models, predict_all, resize_grayscale
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MODELS_DIR = REPO_ROOT / 'models'
 DATA_TEST_DIR = REPO_ROOT / 'data' / 'Testing'
-CONTRIBUTORS = "Jeremy Kelly, Marco Basile, Tyler Asmussen, Oden Ineza"
+CONTRIBUTORS = "Jeremy Kelly, Marco Basile, Tyler Asmussen, Odon Ineza"
 
 st.set_page_config(page_title="Brain MRI Tumor Classification — Benchmark Explorer", layout="wide")
 
@@ -167,11 +169,12 @@ MODEL_CARDS = [
     ("Logistic Regression", "2", "Logistic Regression (flattened pixels)"),
     ("Scratch CNN", "3", "Scratch CNN (3 conv blocks)"),
     ("MobileNetV2 Transfer", "4", "MobileNetV2 (transfer learning)"),
+    ("Modified CNN", "5", "Modified CNN (GroupNorm + LR decay)"),
 ]
 
 if not models:
     st.warning(
-        "No trained models found in `models/`. Run **Section 18 — Export Models for "
+        "No trained models found in `models/`. Run **Section 19 — Export Models for "
         "Dashboard** in `final_nb_deliverable3_ml.ipynb`, then refresh this page."
     )
 elif image is None:
@@ -180,7 +183,7 @@ else:
     per_model, consensus = predict_all(models, image)
     consensus_class = CLASSES[int(np.argmax(consensus))]
 
-    cols = st.columns(4)
+    cols = st.columns(len(MODEL_CARDS) + 1)
     with cols[0]:
         st.markdown(render_prob_card("1. Majority Class Baseline", CLASSES, np.full(4, 0.25), highlight=False), unsafe_allow_html=True)
     for col, (name, number, title) in zip(cols[1:], MODEL_CARDS):
@@ -205,7 +208,7 @@ with st.container(border=True):
     st.markdown(
         "- **Image provenance:** Figshare / SARTAJ / Br35H slices distributed via the Kaggle "
         "Brain Tumor MRI Dataset (NickParvar, 2021).\n"
-        "- **Known confusion pattern:** across all three trained models, the largest source of "
+        "- **Known confusion pattern:** across all four trained models, the largest source of "
         "error is glioma vs. meningioma slices (see Section 12 confusion matrices) — visually "
         "similar tumor locations and intensities.\n"
         "- **Generalization:** no patient IDs are available, so results reflect image-level "

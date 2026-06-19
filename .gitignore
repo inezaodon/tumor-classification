@@ -8,12 +8,10 @@ venv/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data / models (usually too large for git)
+# Data (too large for git)
 data/
-*.h5
-*.pkl
-*.pt
-*.pth
+
+# models/ is intentionally tracked — the dashboard ships with the final, committed model weights
 
 # OS
 .DS_Store
