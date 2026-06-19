@@ -1,0 +1,38 @@
+{
+  "classes": [
+    "glioma",
+    "meningioma",
+    "notumor",
+    "pituitary"
+  ],
+  "img_size": [
+    128,
+    128
+  ],
+  "validation_metrics": {
+    "Modified CNN": {
+      "val_loss": 0.2489,
+      "accuracy": 0.9071,
+      "misclassified": 104,
+      "error_rate": 0.0929
+    },
+    "MobileNetV2 Transfer": {
+      "val_loss": 0.2673,
+      "accuracy": 0.9143,
+      "misclassified": 96,
+      "error_rate": 0.0857
+    },
+    "Scratch CNN": {
+      "val_loss": 0.3558,
+      "accuracy": 0.8741,
+      "misclassified": 141,
+      "error_rate": 0.1259
+    },
+    "Logistic Regression": {
+      "val_loss": 1.1756,
+      "accuracy": 0.8455,
+      "misclassified": 173,
+      "error_rate": 0.1545
+    }
+  }
+}
