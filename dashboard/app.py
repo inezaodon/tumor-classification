@@ -166,10 +166,10 @@ with col_preview:
 st.markdown("### Multi-model comparative inference probabilities")
 
 MODEL_CARDS = [
-    ("Logistic Regression", "2", "Logistic Regression (flattened pixels)"),
+    ("Logistic Regression", "2", "Logistic Regression"),
     ("Scratch CNN", "3", "Scratch CNN (3 conv blocks)"),
     ("MobileNetV2 Transfer", "4", "MobileNetV2 (transfer learning)"),
-    ("Modified CNN", "5", "Modified CNN (GroupNorm + LR decay)"),
+    ("Modified CNN", "5", "Modified CNN"),
 ]
 
 if not models:
