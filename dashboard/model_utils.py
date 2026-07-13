@@ -73,6 +73,16 @@ def ensure_model_artifacts(models_dir, base_url=None):
     return models_dir
 
 
+def _patch_logistic_regression_pipeline(pipeline):
+    """Older exported LR pickles may omit `multi_class`; sklearn 1.6 still reads it."""
+    if not hasattr(pipeline, 'steps'):
+        return pipeline
+    clf = pipeline.steps[-1][1]
+    if type(clf).__name__ == 'LogisticRegression' and not hasattr(clf, 'multi_class'):
+        clf.multi_class = 'multinomial'
+    return pipeline
+
+
 def load_models(models_dir):
     """Load whichever exported artifacts exist. Returns (models, metadata)."""
     models_dir = ensure_model_artifacts(Path(models_dir))
@@ -81,7 +91,10 @@ def load_models(models_dir):
     lr_path = models_dir / 'logistic_regression.joblib'
     if lr_path.exists():
         import joblib
-        models['Logistic Regression'] = {'kind': 'sklearn', 'model': joblib.load(lr_path)}
+        models['Logistic Regression'] = {
+            'kind': 'sklearn',
+            'model': _patch_logistic_regression_pipeline(joblib.load(lr_path)),
+        }
 
     scratch_path = models_dir / 'scratch_cnn.keras'
     if scratch_path.exists():
