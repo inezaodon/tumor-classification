@@ -1,0 +1,8 @@
+# Streamlit Cloud reads this file first (entrypoint directory) before root requirements.txt.
+tensorflow>=2.16,<2.21
+streamlit
+pillow
+scikit-learn>=1.6,<1.7
+joblib
+numpy
+pandas
