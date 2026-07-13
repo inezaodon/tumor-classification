@@ -107,7 +107,12 @@ st.caption(
     "and Br35H sources. Classes: glioma, meningioma, notumor, pituitary."
 )
 
-models, metadata = load_models(MODELS_DIR)
+@st.cache_resource(show_spinner='Loading trained models…')
+def get_models():
+    return load_models(MODELS_DIR)
+
+
+models, metadata = get_models()
 
 
 def build_sample_options():

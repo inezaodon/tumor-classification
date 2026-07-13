@@ -2,6 +2,11 @@ kagglehub
 tensorflow>=2.16
 matplotlib
 seaborn
-opencv-python
+opencv-python-headless
 pandas
 numpy
+streamlit
+pillow
+scikit-learn>=1.6,<1.7
+joblib
+watchdog
